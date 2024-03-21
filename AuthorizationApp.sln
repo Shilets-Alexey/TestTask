@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthorizationApp.Server", "AuthorizationApp.Server\AuthorizationApp.Server.csproj", "{5D4035DC-707C-44EA-84B3-199366D4C3EC}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "authorizationapp.client", "authorizationapp.client\authorizationapp.client.esproj", "{2401D92C-9936-485E-B1F4-03EFAFA97973}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5D4035DC-707C-44EA-84B3-199366D4C3EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D4035DC-707C-44EA-84B3-199366D4C3EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D4035DC-707C-44EA-84B3-199366D4C3EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D4035DC-707C-44EA-84B3-199366D4C3EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2401D92C-9936-485E-B1F4-03EFAFA97973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2401D92C-9936-485E-B1F4-03EFAFA97973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2401D92C-9936-485E-B1F4-03EFAFA97973}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{2401D92C-9936-485E-B1F4-03EFAFA97973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2401D92C-9936-485E-B1F4-03EFAFA97973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2401D92C-9936-485E-B1F4-03EFAFA97973}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E9C6A18-39AF-4D73-A0B0-522B3FCC4DE6}
+	EndGlobalSection
+EndGlobal
