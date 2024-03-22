@@ -18,11 +18,19 @@ const Navbar = () => {
 
             // check the status code
             if (response.status == 200) {
-                console.log("Authorized");
-                const resp = await response.json();
-
-                // set autorization status
-                setAuthorized(resp.isAuthenticated);
+                const data = await response.json();
+                if (data && data.validationResult) {
+                    if (data.validationResult.isValid) {
+                        setAuthorized(data.result.isAutorized);
+                    } else {
+                        if (data.validationResult.errors) {
+                            const keys = Object.keys(data.validationResult.errors);
+                            if (keys.length > 0) {
+                                alert(data.validationResult.errors[keys[0]]);
+                            }
+                        }
+                    }
+                }
                 return; 
             }
         } catch(error) {

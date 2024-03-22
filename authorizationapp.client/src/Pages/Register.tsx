@@ -39,22 +39,27 @@ function Register() {
             setError("");
             // post data to the /register
             fetch("/users/register", {
-               method: "POST",
-               headers: {
+                method: "POST",
+                headers: {
                     "Content-Type": "application/json",
-               },
-               body: JSON.stringify({
+                },
+                body: JSON.stringify({
                     email: email,
                     password: password,
-               }),
+                }),
             })
-            .then((data) => {
-                // handle success or error from the server
-                console.log(data);
-                if (data.ok)
-                    window.location.href = '/';
-                else
-                    setError("Error registering.");
+            .then(async (response) => {
+            // handle success or error from the server
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.isValid) {
+                        window.location.href = '/';
+                    } else {
+                        setError("Error Logging In.");
+                    }
+                }
+            else
+                setError("Error registering.");
 
             })
             .catch((error) => {

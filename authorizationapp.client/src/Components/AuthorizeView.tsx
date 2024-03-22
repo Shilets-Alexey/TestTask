@@ -38,12 +38,21 @@ function AuthorizeView(props: { children: React.ReactNode }) {
 
                 // check the status code
                 if (response.status == 200) {
-                    console.log("Authorized");
-                    const resp = await response.json();
-                    
-                    setAuthorized(resp.isAuthenticated);
-                    setUser({ email: resp.email });
-                    return response; // return the response
+                    const data = await response.json();
+                    if (data && data.validationResult) {
+                        if (data.validationResult.isValid) {
+                            setAuthorized(data.result.isAutorized);
+                            setUser({ email: data.result.email });
+                        } else {
+                            if (data.validationResult.errors) {
+                                const keys = Object.keys(data.validationResult.errors);
+                                if (keys.length > 0) {
+                                    alert(data.validationResult.errors[keys[0]]);
+                                }
+                            }
+                        }
+                    }
+                    return response;
                 } else if (response.status == 401) {
                     console.log("Unauthorized");
                     return response; // return the response

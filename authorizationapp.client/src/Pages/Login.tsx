@@ -50,7 +50,6 @@ function Login() {
 
                 .then((data) => {
                     // handle success or error from the server
-                    console.log(data);
                     if (data.ok) {
                         window.location.href = '/';
                     }

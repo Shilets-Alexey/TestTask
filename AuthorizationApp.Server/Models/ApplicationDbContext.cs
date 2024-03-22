@@ -27,7 +27,7 @@ namespace AuthorizationApp.Server.Models
             ApplicationUser admin = new ApplicationUser() { UserName = "admin@mail.ru", Email = "admin@mail.ru", NormalizedUserName = "admin@mail.ru".ToUpper(), NormalizedEmail = "admin@mail.ru".ToUpper() };
             admin.PasswordHash = hasher.HashPassword(admin, "Alex123456!");
             builder.Entity<ApplicationUser>().HasData(admin);
-            IdentityRole adminrole = new IdentityRole() { Id = Constants.AdminRole.ToString(), Name = "Admin", NormalizedName = "Admin".ToUpper() };
+            IdentityRole adminrole = new IdentityRole() { Name = "Admin", NormalizedName = "Admin".ToUpper() };
             builder.Entity<IdentityRole>().HasData(adminrole);
             IdentityUserRole<string> identityUserRole = new IdentityUserRole<string>() { RoleId = adminrole.Id, UserId = admin.Id };
             builder.Entity<IdentityUserRole<string>>().HasNoKey().HasData(identityUserRole);

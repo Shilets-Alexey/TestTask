@@ -20,6 +20,10 @@ const ProfileComponent = () => {
                 setError('File size must be less then 20kb');
                 return;
             }
+            if (e.target.files[0].size === 0) {
+                setError('File size must be greater then 0b');
+                return;
+            }
             try {
                 const form = new FormData();
                 form.append('file', e.target.files[0]);
@@ -29,9 +33,20 @@ const ProfileComponent = () => {
                 });
                 // check the status code
                 if (response.ok) {
-                    setError("")
-                    //set filer url
-                    setFile(URL.createObjectURL(e.target.files[0]));
+                    const data = await response.json();
+                    if (data && data.isValid) {
+                        setError("")
+                        //set filer url
+                        setFile(URL.createObjectURL(e.target.files[0]));
+                    } else {
+                        if (data.errors) {
+                            const keys = Object.keys(data.errors);
+                            if (keys.length > 0) {
+                                setError(data.errors[keys[0]]);
+                            }
+                        }
+                    }
+                    
                 } else {
                     //set first from server
                     const errorInfo = await response.json();
@@ -58,8 +73,21 @@ const ProfileComponent = () => {
         // check the status code
         if (response.status == 200) {
             const data = await response.json();
-            setUser(data);
-            setFile("data:" + data?.imgType + ";base64," + data?.imgData);
+            if (data && data.validationResult) {
+                if (data.validationResult.isValid) {
+                    var a = data.result as User;
+                    setUser(data.result);
+                    setFile("data:" + data.result?.imgType + ";base64," + data.result?.imgData);
+                } else {
+                    if (data.validationResult.errors) {
+                        const keys = Object.keys(data.validationResult.errors);
+                        if (keys.length > 0) {
+                            setError(data.validationResult.errors[keys[0]]);
+                        }
+                    }
+                }
+            }
+           
         } else {
             throw new Error("" + response.status);
         }

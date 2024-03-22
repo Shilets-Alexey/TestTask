@@ -1,6 +1,6 @@
 ﻿using AuthorizationApp.Server.Helpers;
 using AuthorizationApp.Server.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,54 +17,39 @@ namespace AuthorizationApp.Server.Controllers
             _userManager = userManager;
         }
 
+        [Authorize]
         [HttpDelete, Route("{userId}")]
-        public async Task<IResult> DeleteUser(Guid userId)
-        {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "Need sign in" } } });
-            }
-            if (!User.IsInRole("Admin"))
-            {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "You don't have admin rights" } } });
-            }
+        public async Task<ValidationResult> DeleteUserAsync(Guid userId)
+        {   
             ApplicationUser CurrntUserInfo = await _userManager.FindByNameAsync(User.Identity.Name);
-            if (CurrntUserInfo.Id == userId.ToString())
-            {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "Can't delete current user" } } });
-            }
             ApplicationUser? user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user == default)
+            ValidationResult validationInfo = ValidationHelper.OnDeleteUserValidate(User, CurrntUserInfo, user);
+            if (!validationInfo.IsValid)
             {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "User not exist" } } });
+                return validationInfo;
             }
-            var roles = await _userManager.GetRolesAsync(user);
-            if (WorkWithUsersHelper.HasAdminRights(roles))
+            IList<string> roles = await _userManager.GetRolesAsync(user);
+            validationInfo = ValidationHelper.HasAdminRightsValidate(roles);
+            if (!validationInfo.IsValid)
             {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "Can't delete users with admin righs" } } });
+                return validationInfo;
             }
             await _userManager.DeleteAsync(user);
-            return Results.Ok();
+            return validationInfo;
         }
 
-        [HttpPatch, Route("{userId}/role/{roleId}")]
-        public async Task<IResult> SetAdminRights(Guid userId, Guid roleId)
+        [Authorize]
+        [HttpPatch, Route("{userId}/role/{role}")]
+        public async Task<ValidationResult> SetRoleAsync(Guid userId, string role)
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "Need sign in" } } });
-            }
-            if (!User.IsInRole("Admin"))
-            {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "NotAdmin" } } });
-            }
             ApplicationUser? user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user != default)
+            ValidationResult validationInfo = ValidationHelper.OnSetRoleValidate(User, user, role);
+            if (!validationInfo.IsValid)
             {
-
-                await _userManager.AddToRoleAsync(user, "Admin");
+                return validationInfo;
             }
-            return Results.Ok();
+            await _userManager.AddToRoleAsync(user, role);
+            return validationInfo;
         }
     }
 }

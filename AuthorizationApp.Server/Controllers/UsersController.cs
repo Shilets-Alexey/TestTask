@@ -6,26 +6,23 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
-using System.ComponentModel.DataAnnotations;
 
 namespace AuthorizationApp.Server.Controllers
 {
 
     [ApiController]
     [Route("users")]
-    public class UserController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IMapper _mapper;
-        private static readonly EmailAddressAttribute _emailAddressAttribute = new();
 
-        public UserController(ApplicationDbContext dbContext,
+        public UsersController(ApplicationDbContext dbContext,
                                 UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 IUserStore<ApplicationUser> userStore,
@@ -38,73 +35,58 @@ namespace AuthorizationApp.Server.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         [HttpGet]
-        public IResult GetUsers()
+        public ServiceResult<List<User>> GetUsers()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "Need sign in" } } });
-            }
             List<ApplicationUser> users = _dbContext.Users.ToList();
             List<User> resultList = new List<User>();
             users.ForEach(user =>
             {
                 var result = _userManager.GetRolesAsync(user);
                 User userOnClient = _mapper.Map<User>(user);
-                userOnClient.UserRoles = WorkWithUsersHelper.GetRolesString(result.Result);
-                userOnClient.IsBtnVisible = !WorkWithUsersHelper.HasAdminRights(result.Result) && User.IsInRole("Admin");
+                userOnClient.UserRoles = UsersHelper.GetRolesString(result.Result);
+                userOnClient.IsBtnVisible = !UsersHelper.HasAdminRights(result.Result) && User.IsInRole("Admin");
                 resultList.Add(userOnClient);
             });
-            return Results.Json(resultList);
+            return ServiceResult<List<User>>.Create(resultList);
         }
 
+        [Authorize]
         [HttpGet, Route("current")]
-        public async Task<IResult> GetCurrentUser()
+        public async Task<ServiceResult<User>> GetCurrentUserAsync()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "Need sign in" } } });
-            }
             ApplicationUser applicationUser = await _userManager.FindByNameAsync(User.Identity.Name);
             User user = _mapper.Map<User>(applicationUser);
-            return Results.Json(user);
+            return ServiceResult<User>.Create(user);
         }
 
+        [Authorize]
         [HttpPatch, Route("{userId}/photo")]
-        public async Task<IResult> UpdatePhoto([FromForm] IFormFile file, Guid userId)
+        public async Task<ValidationResult> UpdatePhotoAsync([FromForm] IFormFile file, Guid userId)
         {
-            ApplicationUser CurrentUserInfo = await _userManager.FindByNameAsync(User.Identity.Name);
-            if (!User.Identity.IsAuthenticated)
-            {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "Need sign in" } } });
-            }
-            if (CurrentUserInfo.Id != userId.ToString())
-            {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "userId", new string[] { "Can't upload profile pic to another user" } } });
-            }
+            ApplicationUser currentUserInfo = await _userManager.FindByNameAsync(User.Identity.Name);
             ApplicationUser user = await _userManager.FindByIdAsync(userId.ToString());
-            if (user == default)
+            ValidationResult validationInfo =  ValidationHelper.OnUpdatePhoto(User, currentUserInfo, user);
+            if (!validationInfo.IsValid)
             {
-                return TypedResults.ValidationProblem(new Dictionary<string, string[]>() { { "userId", new string[] { "User with this id dosen't exist" } } });
+                return validationInfo;
             }
-            if (file != user.ImgFile)
+            if (file != null)
             {
-                if (file != null)
-                {
 
-                    WorkWithUsersHelper.SetImage(user, file);
-                    var setImageResult = await _userManager.UpdateAsync(user);
-                    if (!setImageResult.Succeeded)
-                    {
-                        return WorkWithUsersHelper.CreateValidationProblem(setImageResult);
-                    }
+                UsersHelper.SetImage(user, file);
+                var setImageResult = await _userManager.UpdateAsync(user);
+                if (!setImageResult.Succeeded)
+                {
+                    return ValidationHelper.CreateValidationProblem(setImageResult);
                 }
             }
-            return Results.Ok();
+            return validationInfo;
         }
 
         [HttpPost, Route("login")]
-        public async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>> Login(
+        public async Task<Results<Ok<AccessTokenResponse>, EmptyHttpResult, ProblemHttpResult>> LoginAsync(
             [FromBody] LoginRequest login, 
             [FromQuery] bool? useCookies,
             [FromQuery] bool? useSessionCookies)
@@ -142,7 +124,7 @@ namespace AuthorizationApp.Server.Controllers
         }
 
         [HttpPost, Route("register")]
-        public async Task<Results<Ok, ValidationProblem>> Register([FromBody] RegisterRequest registration)
+        public async Task<ValidationResult> RegisterAsync([FromBody] RegisterRequest registration)
         {
             if (!_userManager.SupportsUserEmail)
             {
@@ -150,13 +132,12 @@ namespace AuthorizationApp.Server.Controllers
             }
             IUserEmailStore<ApplicationUser> emailStore = (IUserEmailStore<ApplicationUser>)_userStore;
             string email = registration.Email;
-
-            if (string.IsNullOrEmpty(email) || !_emailAddressAttribute.IsValid(email))
-            {
-                return WorkWithUsersHelper.CreateValidationProblem(IdentityResult.Failed(_userManager.ErrorDescriber.InvalidEmail(email)));
-            }
-
             ApplicationUser user = new ApplicationUser();
+            ValidationResult validationInfo = ValidationHelper.OnRegeisterValidate(email, [_userManager.ErrorDescriber.InvalidEmail(email)]);
+            if (!validationInfo.IsValid)
+            {
+                return validationInfo;
+            }
             await _userStore.SetUserNameAsync(user, email, CancellationToken.None);
             await emailStore.SetEmailAsync(user, email, CancellationToken.None);
             user.LastLoginDate = DateTime.UtcNow;
@@ -164,24 +145,23 @@ namespace AuthorizationApp.Server.Controllers
             IdentityResult result = await _userManager.CreateAsync(user, registration.Password);
             if (!result.Succeeded)
             {
-                return WorkWithUsersHelper.CreateValidationProblem(result);
+                return ValidationHelper.CreateValidationProblem(result);
             }
             await _signInManager.SignInAsync(user, false);
-            return TypedResults.Ok();
+            return validationInfo;
         }
 
         [Authorize]
         [HttpPost, Route("logout")]
-        public async Task<IResult> Logout()
+        public async Task LogoutAsync()
         {
             await _signInManager.SignOutAsync();
-            return Results.Ok();
         }
 
         [HttpGet, Route("pingauth")]
-        public IResult PingAuth()
+        public ServiceResult<object> PingAuth()
         {
-            return Results.Json(new { isAuthenticated = User.Identity.IsAuthenticated });
+            return ServiceResult<object>.Create(new { isAutorized = User.Identity.IsAuthenticated, email = User.Identity.Name});
         }
 
 

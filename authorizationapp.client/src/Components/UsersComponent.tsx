@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { User } from "./UsersInterface";
-import { ADMIN_ROLE } from "../Constants";
 
 const UsersComponent = () => {
     // state variable for users
@@ -17,8 +16,20 @@ const UsersComponent = () => {
         // check the status code
         if (response.status == 200) {
             const data = await response.json();
-            // set users dta
-            setUsers(data);
+            if (data && data.validationResult) {
+                if (data.validationResult.isValid) {
+                    setUsers(data.result);
+                } else {
+                    if (data.validationResult.errors) {
+                        const keys = Object.keys(data.validationResult.errors);
+                        if (keys.length > 0) {
+                            alert(data.validationResult.errors[keys[0]]);
+                        }
+                    }
+                }
+            } else {
+                throw new Error("Invalid response data" + response.status);
+            }
         } else {
             throw new Error("" + response.status);
         }
@@ -68,9 +79,19 @@ const UsersComponent = () => {
             // make the fetch request
             const response = await fetch("admins/" + user.id, { method: "DELETE" });
             if (response.ok) {
-                // remove users from client
-                const usersNewList = users?.filter(x => x.id !== user.id);
-                setUsers(usersNewList);
+                const data = await response.json();
+                if (data && data.isValid) {
+                    // remove users from client
+                    const usersNewList = users?.filter(x => x.id !== user.id);
+                    setUsers(usersNewList);
+                } else {
+                    if (data.errors) {
+                        const keys = Object.keys(data.errors);
+                        if (keys.length > 0) {
+                            alert(data.errors[keys[0]]);
+                        }
+                    }
+                }
             }
             else {
                 //set first from server
@@ -91,10 +112,20 @@ const UsersComponent = () => {
 
     async function setAdminRights(user: User) {
         // make the fetch request
-        const response = await fetch("admins/" + user.id + "/role/" + ADMIN_ROLE, { method: "PATCH" })
+        const response = await fetch("admins/" + user.id + "/role/" + "Admin", { method: "PATCH" })
         if (response.ok) {
-            // get new users information
-            getUsers().catch((error) => { console.log(error.message) });
+            const data = await response.json();
+            if (data && data.isValid) {
+                // remove users from client
+                getUsers().catch((error) => { console.log(error.message) });
+            } else {
+                if (data.errors) {
+                    const keys = Object.keys(data.errors);
+                    if (keys.length > 0) {
+                        alert(data.errors[keys[0]]);
+                    }
+                }
+            }
         }
         else {
             //set first from server
