@@ -597,3 +597,4 @@ C:\Users\Alex\source\repos\AutorizationAppgit\AuthorizationApp.Server\obj\Debug\
 C:\Users\Alex\source\repos\AutorizationAppgit\AuthorizationApp.Server\obj\Debug\net8.0\AuthorizationApp.Server.pdb
 C:\Users\Alex\source\repos\AutorizationAppgit\AuthorizationApp.Server\obj\Debug\net8.0\AuthorizationApp.Server.genruntimeconfig.cache
 C:\Users\Alex\source\repos\AutorizationAppgit\AuthorizationApp.Server\obj\Debug\net8.0\ref\AuthorizationApp.Server.dll
+C:\Users\Alex\source\repos\AutorizationAppgit\AuthorizationApp.Server\bin\Debug\net8.0\AutoMapper.dll

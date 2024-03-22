@@ -63,3 +63,6 @@ th, td {
     max-width: 240px;
     max-height: 240px;
 }
+.simple-btn {
+    margin: 3px;
+}

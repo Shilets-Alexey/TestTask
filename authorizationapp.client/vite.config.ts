@@ -50,46 +50,43 @@ export default defineConfig({
                 target: 'https://localhost:7028/',
                 secure: false
             },
-            '^/users/create': {
-                target: 'https://localhost:7028/',
-                secure: false
-            },
-            '^/pingauth': {
-                target: 'https://localhost:7028/',
-                secure: false
-            },
-            '^/register': {
-                target: 'https://localhost:7028/',
-                secure: false
-            },
-            '^/login': {
-                target: 'https://localhost:7028/',
-                secure: false
-            },
-            '^/logout': {
-                target: 'https://localhost:7028/',
-                secure: false
-            },
             '^/users': {
                 target: 'https://localhost:7028/',
                 secure: false
             },
-            '^/deleteUser': {
+            '^/users/login': {
                 target: 'https://localhost:7028/',
                 secure: false
             },
-            '^/setAdminRights': {
+            '^/users/register': {
                 target: 'https://localhost:7028/',
                 secure: false
             },
-            '^/updatePhoto': {
+            '^/users/pingauth': {
                 target: 'https://localhost:7028/',
                 secure: false
             },
-            '/currentUser': {
+            '^/users/logoutout': {
                 target: 'https://localhost:7028/',
                 secure: false
-            }
+            },
+            '^users/{userId}/photo': {
+                target: 'https://localhost:7028/',
+                secure: false
+            },
+            '^/users/current': {
+                target: 'https://localhost:7028/',
+                secure: false
+            },
+            '^/admins': {
+                target: 'https://localhost:7028/',
+                secure: false
+            },
+            '^/admins/{userId}/role/{roleId}': {
+                target: 'https://localhost:7028/',
+                secure: false
+            },
+
             
         },
         port: 5173,

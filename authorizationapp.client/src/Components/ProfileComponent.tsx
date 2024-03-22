@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { User } from "./UsersInterface";
 
 const ProfileComponent = () => {
-    let emptyUser: User = { userName: "" };
+    const emptyUser: User = { userName: "" };
     // state error variable
     const [error, setError] = useState<string>("");
     // state file url variable
@@ -21,10 +21,10 @@ const ProfileComponent = () => {
                 return;
             }
             try {
-                let form = new FormData();
-                form.append('File', e.target.files[0]);
+                const form = new FormData();
+                form.append('file', e.target.files[0]);
                 // fetch request
-                var response = await fetch('/updatePhoto?userId=' + user.id, {
+                const response = await fetch('/users/' + user.id + "/photo", {
                     method: "PATCH", headers: { "contentType": "multipart/formdata" }, body: form
                 });
                 // check the status code
@@ -34,9 +34,9 @@ const ProfileComponent = () => {
                     setFile(URL.createObjectURL(e.target.files[0]));
                 } else {
                     //set first from server
-                    var errorInfo = await response.json();
+                    const errorInfo = await response.json();
                     if (errorInfo.errors) {
-                        let keys = Object.keys(errorInfo.errors);
+                        const keys = Object.keys(errorInfo.errors);
                         if (keys.length > 0) {
                             setError(errorInfo.errors[keys[0]]);
                         }
@@ -52,20 +52,16 @@ const ProfileComponent = () => {
     }
 
     async function GetCurrenUserData() {
-        try {
             // make the fetch request
-            let response = await fetch("/currentUser", { method: "GET" });
+        const response = await fetch("/users/current", { method: "GET" });
 
-            // check the status code
-            if (response.status == 200) {
-                let data = await response.json();
-                setUser(data);
-                setFile("data:" + data?.imageType + ";base64," + data?.profileImg);
-            } else {
-                throw new Error("" + response.status);
-            }
-        } catch (error) {
-            throw error;
+        // check the status code
+        if (response.status == 200) {
+            const data = await response.json();
+            setUser(data);
+            setFile("data:" + data?.imgType + ";base64," + data?.imgData);
+        } else {
+            throw new Error("" + response.status);
         }
     } 
 

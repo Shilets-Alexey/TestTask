@@ -14,9 +14,9 @@ namespace AuthorizationApp.Server.Models
         public string? ImgType { get; set; }
 
         [NotMapped]
-        public IFormFile ImageFile { get; set; }
+        public IFormFile ImgFile { get; set; }
 
-        public int SuccesLoggCount { get; set; }
+        public int SucceededLoginsCount { get; set; }
 
         public DateTime LastLoginDate { get; set; }
     } 

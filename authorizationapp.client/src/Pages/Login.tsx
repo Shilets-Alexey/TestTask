@@ -31,11 +31,11 @@ function Login() {
         } else {
             // clear error message
             setError("");
-            var loginurl = "";
+            let loginurl = "";
             if (rememberme == true)
-                loginurl = "/login?useCookies=true";
+                loginurl = "/users/login?useCookies=true";
             else
-                loginurl = "/login?useSessionCookies=true";
+                loginurl = "/users/login?useSessionCookies=true";
             // post data to the loginurl api
             fetch(loginurl, {
                 method: "POST",
@@ -103,10 +103,10 @@ function Login() {
                         onChange={handleChange} /><span>Remember Me</span>
                 </div>
                 <div>
-                    <button type="submit">Login</button>
+                    <button className="simple-btn" type="submit">Login</button>
                 </div>
                 <div>
-                    <button onClick={handleRegisterClick}>Register</button>
+                    <button className="simple-btn" onClick={handleRegisterClick}>Register</button>
                 </div>
             </form>
             {error && <p className="error">{error}</p>}

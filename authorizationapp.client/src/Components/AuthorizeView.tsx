@@ -23,8 +23,8 @@ function AuthorizeView(props: { children: React.ReactNode }) {
     useEffect(() => {
         // Get the cookie value
         let retryCount = 0; // initialize the retry count
-        let maxRetries = 3; // set the maximum number of retries
-        let delay = 100;
+        const maxRetries = 3; // set the maximum number of retries
+        const delay = 100;
         // define a delay function that returns a promise
         function wait(delay: number) {
             return new Promise((resolve) => setTimeout(resolve, delay));
@@ -34,12 +34,12 @@ function AuthorizeView(props: { children: React.ReactNode }) {
         async function fetchWithRetry(url: string, options: any) {
             try {
                 // make the fetch request
-                let response = await fetch(url, options);
+                const response = await fetch(url, options);
 
                 // check the status code
                 if (response.status == 200) {
                     console.log("Authorized");
-                    let resp: any = await response.json();
+                    const resp = await response.json();
                     
                     setAuthorized(resp.isAuthenticated);
                     setUser({ email: resp.email });
@@ -67,7 +67,7 @@ function AuthorizeView(props: { children: React.ReactNode }) {
         }
 
         // call the fetch function with retry logic
-        fetchWithRetry("/pingauth", {
+        fetchWithRetry("/users/pingauth", {
             method: "GET",
         })
             .catch((error) => {

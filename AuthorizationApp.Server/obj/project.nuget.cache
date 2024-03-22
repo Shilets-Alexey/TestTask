@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "na6nVGApNYHL4LuB6c5qj/GNKSUhwFC+ZjCDJtOmEaXVmQv9PCCzc/AzW6XyI0gzuTmP6wmZ5camrleiqhZGaQ==",
+  "dgSpecHash": "eNGYELWn8N2VxujSL37dq+Ba+9R6LVnrfzkDqEtg0fYSySrgp+TVcvIH88Ilwh2PUP/BwUoRsx2qbh/Xb1ZQHw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AuthorizationApp.Server\\AuthorizationApp.Server.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Alex\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",

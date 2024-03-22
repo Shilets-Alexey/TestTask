@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { User } from "./UsersInterface";
+import { ADMIN_ROLE } from "../Constants";
 
 const UsersComponent = () => {
     // state variable for users
@@ -9,20 +10,17 @@ const UsersComponent = () => {
     }, [])
     
     async function getUsers() {
-        try {
-            // make the fetch request
-            let response = await fetch("/users", { method: "GET" });
-                
-            // check the status code
-            if (response.status == 200) {
-                let data = await response.json();
-                // set users dta
-                setUsers(data);
-            } else {
-                throw new Error("" + response.status);
-            }
-        } catch (error) {
-            throw error;
+
+        // make the fetch request
+        const response = await fetch("/users");
+            
+        // check the status code
+        if (response.status == 200) {
+            const data = await response.json();
+            // set users dta
+            setUsers(data);
+        } else {
+            throw new Error("" + response.status);
         }
     }
 
@@ -34,11 +32,11 @@ const UsersComponent = () => {
             <table className="table table-striped" aria-labelledby="tabelLabel">
                 <thead>
                     <tr>
-                        <th>UserName</th>
-                        <th>userRoles</th>
-                        <th>lastLogin</th>
-                        <th>succesLogins</th>
-                        <th>profileImg</th>
+                        <th>User name</th>
+                        <th>Roles</th>
+                        <th>Last login date</th>
+                        <th>Succeeded logins count</th>
+                        <th>photo</th>
                         <th>actions</th>
                     </tr>
                 </thead>
@@ -46,12 +44,12 @@ const UsersComponent = () => {
                     {users.map(user => <tr key={user.userName}>
                         <td>{user.userName}</td>
                         <td>{user.userRoles}</td>
-                        <td>{user.succesLogins}</td>
-                        <td>{user.lastLogin}</td>
+                        <td>{user.succeededLoginsCount}</td>
+                        <td>{user.lastLoginDate}</td>
                         <td>
                             {
-                                user?.profileImg 
-                                    ? <img className="form-img" src={"data:" + user?.imageType + ";base64," + user?.profileImg} />
+                                user?.imgData 
+                                    ? <img className="form-img" src={"data:" + user?.imgType + ";base64," + user?.imgData} />
                                     : ""
                             }
                         </td>  
@@ -68,17 +66,17 @@ const UsersComponent = () => {
     async function deleteUser(user: User) {
         try {
             // make the fetch request
-            var response = await fetch("/deleteUser?userId=" + user.id, { method: "DELETE" });
+            const response = await fetch("admins/" + user.id, { method: "DELETE" });
             if (response.ok) {
                 // remove users from client
-                let newUsersKust = users?.filter(x => x.id !== user.id);
-                setUsers(newUsersKust);
+                const usersNewList = users?.filter(x => x.id !== user.id);
+                setUsers(usersNewList);
             }
             else {
                 //set first from server
-                var errorInfo = await response.json();
+                const errorInfo = await response.json();
                 if (errorInfo.errors) {
-                    let keys = Object.keys(errorInfo.errors);
+                    const keys = Object.keys(errorInfo.errors);
                     if (keys.length > 0) {
                         alert(errorInfo.errors[keys[0]]);
                     }
@@ -93,16 +91,16 @@ const UsersComponent = () => {
 
     async function setAdminRights(user: User) {
         // make the fetch request
-        var response = await fetch("/setAdminRights?userId=" + user.id, { method: "POST" })
+        const response = await fetch("admins/" + user.id + "/role/" + ADMIN_ROLE, { method: "PATCH" })
         if (response.ok) {
             // get new users information
             getUsers().catch((error) => { console.log(error.message) });
         }
         else {
             //set first from server
-            var errorInfo = await response.json();
+            const errorInfo = await response.json();
             if (errorInfo.errors) {
-                let keys = Object.keys(errorInfo.errors);
+                const keys = Object.keys(errorInfo.errors);
                 if (keys.length > 0) {
                     alert(errorInfo.errors[keys[0]]);
                 }

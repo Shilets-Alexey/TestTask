@@ -37,33 +37,33 @@ function Register() {
             setError("Passwords do not match.");
         } else {
             setError("");
-        }
-    };
-
-    async function RegistUser() {
-        try {
             // post data to the /register
-            let response = await fetch("/register", {
-                method: "POST",
-                headers: {
+            fetch("/users/register", {
+               method: "POST",
+               headers: {
                     "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
+               },
+               body: JSON.stringify({
                     email: email,
                     password: password,
-                }),
+               }),
             })
-            if (response.ok) {
-                // handle success
-                window.location.href = '/';
-            } else {
+            .then((data) => {
+                // handle success or error from the server
+                console.log(data);
+                if (data.ok)
+                    window.location.href = '/';
+                else
+                    setError("Error registering.");
+
+            })
+            .catch((error) => {
+                // handle network error
+                console.error(error);
                 setError("Error registering.");
-            }
-        } catch(error) {
-            console.error(error);
-            setError("Error registering.");
-        }
-    }
+            });
+         }
+    };
 
     return (
         <div className="containerbox">
@@ -102,11 +102,11 @@ function Register() {
                     />
                 </div>
                 <div>
-                    <button type="submit" onClick={RegistUser}>Register</button>
+                    <button className="simple-btn" type="submit">Register</button>
 
                 </div>
                 <div>
-                    <button onClick={handleLoginClick}>Go to Login</button>
+                    <button className="simple-btn" onClick={handleLoginClick}>Go to Login</button>
                 </div>
             </form>
 
