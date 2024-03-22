@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\AuthorizationApp.DataBase.props" />
+</Project>

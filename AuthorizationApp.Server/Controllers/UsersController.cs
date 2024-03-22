@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
 
 namespace AuthorizationApp.Server.Controllers
 {
@@ -128,7 +127,7 @@ namespace AuthorizationApp.Server.Controllers
         {
             if (!_userManager.SupportsUserEmail)
             {
-                throw new NotSupportedException($"{nameof(Register)} requires a user store with email support.");
+                throw new NotSupportedException($"{nameof(RegisterAsync)} requires a user store with email support.");
             }
             IUserEmailStore<ApplicationUser> emailStore = (IUserEmailStore<ApplicationUser>)_userStore;
             string email = registration.Email;
