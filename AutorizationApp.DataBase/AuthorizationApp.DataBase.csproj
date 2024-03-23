@@ -13,12 +13,4 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\lib\bootstrap\dist\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\authorizationapp.client\authorizationapp.client.esproj" />
-  </ItemGroup>
-
 </Project>
