@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "nsnGbuKDwqYGu6e4enexN2ZWWu3nc5cLa5gou2zodHSzO8ZC9+dp2OW+jNWaLQWggA8PaFkD77gHDanIR9Yq9w==",
-  "success": true,
-  "projectFilePath": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj",
+  "dgSpecHash": "Jejy5y9A1bLknyuKOceIdaf7ezmRil8m0nS6/9EKPySLf77m0tHdA+/FItN8rGqLsybd8Weqmm8fYriucmtYmg==",
+  "success": false,
+  "projectFilePath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Alex\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
@@ -65,5 +65,15 @@
     "C:\\Users\\Alex\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\Alex\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1105",
+      "level": "Error",
+      "message": "Не удалось найти сведения о проекте для \"C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\authorizationapp.client\\authorizationapp.client.esproj\". Если вы используете Visual Studio, причина может заключаться в том, что проект выгружен или не является частью текущего решения. В этом случае выполните восстановление из командной строки. В противном случае причина может быть связана с тем, что файл проекта является недопустимым или отсутствуют целевые объекты, необходимые для восстановления.",
+      "libraryId": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\authorizationapp.client\\authorizationapp.client.esproj",
+      "targetGraphs": [
+        "net8.0"
+      ]
+    }
+  ]
 }

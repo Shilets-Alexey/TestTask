@@ -19,10 +19,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AuthorizationApp.BusinessLogic\AuthorizationApp.BusinessLogic.csproj" />
     <ProjectReference Include="..\authorizationapp.client\authorizationapp.client.esproj">
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\AutorizationApp.DataBase\AuthorizationApp.DataBase.csproj" />
   </ItemGroup>
 
 </Project>

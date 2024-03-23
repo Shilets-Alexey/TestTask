@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AuthorizationApp.Server\\AuthorizationApp.Server.csproj": {}
+    "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.Server\\AuthorizationApp.Server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AuthorizationApp.Server\\AuthorizationApp.Server.csproj": {
+    "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.BusinessLogic\\AuthorizationApp.BusinessLogic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AuthorizationApp.Server\\AuthorizationApp.Server.csproj",
-        "projectName": "AuthorizationApp.Server",
-        "projectPath": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AuthorizationApp.Server\\AuthorizationApp.Server.csproj",
+        "projectUniqueName": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.BusinessLogic\\AuthorizationApp.BusinessLogic.csproj",
+        "projectName": "AuthorizationApp.BusinessLogic",
+        "projectPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.BusinessLogic\\AuthorizationApp.BusinessLogic.csproj",
         "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AuthorizationApp.Server\\obj\\",
+        "outputPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.BusinessLogic\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,8 +28,70 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj": {
-                "projectPath": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj"
+              "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj": {
+                "projectPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.103/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.Server\\AuthorizationApp.Server.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.Server\\AuthorizationApp.Server.csproj",
+        "projectName": "AuthorizationApp.Server",
+        "projectPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.Server\\AuthorizationApp.Server.csproj",
+        "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.Server\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.BusinessLogic\\AuthorizationApp.BusinessLogic.csproj": {
+                "projectPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.BusinessLogic\\AuthorizationApp.BusinessLogic.csproj"
               }
             }
           }
@@ -84,14 +146,14 @@
         }
       }
     },
-    "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj": {
+    "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj",
+        "projectUniqueName": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj",
         "projectName": "AuthorizationApp.DataBase",
-        "projectPath": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj",
+        "projectPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj",
         "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\obj\\",
+        "outputPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",

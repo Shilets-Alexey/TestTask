@@ -1,3 +1,4 @@
+using AuthorizationApp.Server.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AuthorizationApp.Server.Controllers

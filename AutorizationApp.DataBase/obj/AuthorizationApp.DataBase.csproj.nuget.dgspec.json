@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj": {}
+    "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj": {
+    "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj",
+        "projectUniqueName": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj",
         "projectName": "AuthorizationApp.DataBase",
-        "projectPath": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj",
+        "projectPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\AuthorizationApp.DataBase.csproj",
         "packagesPath": "C:\\Users\\Alex\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AutorizationApp.DataBase\\obj\\",
+        "outputPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AutorizationApp.DataBase\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Alex\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -27,7 +27,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\authorizationapp.client\\authorizationapp.client.esproj": {
+                "projectPath": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\authorizationapp.client\\authorizationapp.client.esproj"
+              }
+            }
           }
         },
         "warningProperties": {

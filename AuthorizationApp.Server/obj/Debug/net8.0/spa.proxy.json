@@ -3,7 +3,7 @@
 "ServerUrl": "https://localhost:5173",
 "RedirectUrl": "",
 "LaunchCommand": "npm run dev",
-"WorkingDirectory": "C:\\Users\\Alex\\source\\repos\\AutorizationAppgit\\AuthorizationApp.Server\\..\\authorizationapp.client",
+"WorkingDirectory": "C:\\Users\\Alex\\source\\repos\\AuthorizationApp\\TestTask\\AuthorizationApp.Server\\..\\authorizationapp.client",
 "MaxTimeoutInSeconds": "120",
 "KeepRunning": "false"
 }

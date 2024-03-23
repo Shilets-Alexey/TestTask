@@ -8,7 +8,8 @@ namespace AuthorizationApp.Server.Mapping
     {
         public AppMappingProfile()
         {
-            CreateMap<ApplicationUser, User>();
+            CreateMap<ApplicationUser, User>()
+                .ForMember("LastLoginDate", opt => opt.MapFrom(appUser => appUser.LastLoginDate == default ? "" : appUser.LastLoginDate.ToString()));
         }
     }
 }

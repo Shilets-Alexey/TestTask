@@ -1,2 +1,3 @@
 C:\Users\Alex\source\repos\AuthorizationApp\authorizationapp.client\obj\Debug\authorizationapp.client.esproj.CoreCompileInputs.cache
 C:\Users\Alex\source\repos\AutorizationAppgit\authorizationapp.client\obj\Debug\authorizationapp.client.esproj.CoreCompileInputs.cache
+C:\Users\Alex\source\repos\AuthorizationApp\TestTask\authorizationapp.client\obj\Debug\authorizationapp.client.esproj.CoreCompileInputs.cache

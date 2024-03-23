@@ -55,8 +55,8 @@ const UsersComponent = () => {
                     {users.map(user => <tr key={user.userName}>
                         <td>{user.userName}</td>
                         <td>{user.userRoles}</td>
-                        <td>{user.succeededLoginsCount}</td>
                         <td>{user.lastLoginDate}</td>
+                        <td>{user.succeededLoginsCount}</td>
                         <td>
                             {
                                 user?.imgData 
