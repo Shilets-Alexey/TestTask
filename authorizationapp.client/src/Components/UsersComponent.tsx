@@ -65,8 +65,8 @@ const UsersComponent = () => {
                             }
                         </td>  
                         <td>
-                            {user.isBtnVisible ? <button className="red-btn" onClick={() => deleteUser(user)}> Delete </button> : ""}
-                            {user.isBtnVisible ? <button className="blue-btn" onClick={() => setAdminRights(user)}> Grant admin rights </button> : ""}
+                            {user.canDelete ? <button className="red-btn" onClick={() => deleteUser(user)}> Delete </button> : ""}
+                            {user.canGrantRole ? <button className="blue-btn" onClick={() => setAdminRights(user)}> Grant admin rights </button> : ""}
                         </td>
                     </tr>
                     )}

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AuthorizationApp.Server.Models
+namespace AuthorizationApp.Web.Models
 {
     public class ValidationResult
     {

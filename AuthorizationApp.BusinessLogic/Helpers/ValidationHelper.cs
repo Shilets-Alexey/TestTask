@@ -1,18 +1,17 @@
-﻿using AuthorizationApp.Server.Models;
+﻿using AuthorizationApp.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
-using System.Security.Claims;
 
-namespace AuthorizationApp.Server.Helpers
+namespace AuthorizationApp.Web.Helpers
 {
     public class ValidationHelper
     {
-        public static ValidationResult OnDeleteUserValidate(ClaimsPrincipal currentUser,
-                                                        ApplicationUser CurrentUserInfo,
+        public static ValidationResult OnDeleteUserValidate(bool isCurrntUserAdmin,
+                                                        ApplicationUser currentUser,
                                                         ApplicationUser user) {
 
-            if (!currentUser.IsInRole("Admin"))
+            if (!isCurrntUserAdmin)
             {
                 return ValidationResult.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "You don't have admin rights" } } });
             }
@@ -20,7 +19,7 @@ namespace AuthorizationApp.Server.Helpers
             {
                 return ValidationResult.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "User not exist" } } });
             }
-            if (CurrentUserInfo.Id == user.Id.ToString())
+            if (currentUser.Id == user.Id.ToString())
             {
                 return ValidationResult.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "Can't delete current user" } } });
             }
@@ -39,13 +38,10 @@ namespace AuthorizationApp.Server.Helpers
             return new ValidationResult();
         }
 
-        
-           
-
-        public static ValidationResult OnSetRoleValidate(ClaimsPrincipal currentUser, ApplicationUser user, string role)
+        public static ValidationResult OnSetRoleValidate(bool isCurrntUserAdmin, ApplicationUser user, string role)
         {
 
-            if (!currentUser.IsInRole("Admin"))
+            if (!isCurrntUserAdmin)
             {
                 return ValidationResult.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "You don't have admin rights" } } });
             }
@@ -62,9 +58,9 @@ namespace AuthorizationApp.Server.Helpers
             return new ValidationResult();
         }
 
-        public static ValidationResult OnUpdatePhoto(ClaimsPrincipal currentUser, ApplicationUser currentUserInfo, ApplicationUser user)
+        public static ValidationResult OnUpdatePhoto(ApplicationUser currentUser, ApplicationUser user)
         {
-            if (currentUserInfo.Id != user.Id.ToString())
+            if (currentUser.Id != user.Id.ToString())
             {
                 return ValidationResult.ValidationProblem(new Dictionary<string, string[]>() { { "user", new string[] { "Can't upload profile pic to another user" } } });
             }
@@ -96,9 +92,9 @@ namespace AuthorizationApp.Server.Helpers
             // We expect a single error code and description in the normal case.
             // This could be golfed with GroupBy and ToDictionary, but perf! :P
             Debug.Assert(!result.Succeeded);
-            var errorDictionary = new Dictionary<string, string[]>(1);
+            Dictionary<string, string[]> errorDictionary = new Dictionary<string, string[]>(1);
 
-            foreach (var error in result.Errors)
+            foreach (IdentityError error in result.Errors)
             {
                 string[] newDescriptions;
 

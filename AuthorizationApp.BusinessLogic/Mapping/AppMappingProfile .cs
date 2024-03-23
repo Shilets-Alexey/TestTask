@@ -1,8 +1,8 @@
-﻿using AuthorizationApp.Server.Models;
+﻿using AuthorizationApp.Web.Models;
 using AutoMapper;
 using System;
 
-namespace AuthorizationApp.Server.Mapping
+namespace AuthorizationApp.BusinessLogic.Mapping
 {
     public class AppMappingProfile : Profile
     {

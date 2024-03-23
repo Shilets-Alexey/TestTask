@@ -7,7 +7,7 @@ export interface User {
     imgData: string,
     imgType: string,
     isBtnVisible: boolean,
-    deleteBtn: JSX.Element,
-    editBtn: JSX.Element
+    canDelete: JSX.Element,
+    canGrantRole: JSX.Element
     
 }

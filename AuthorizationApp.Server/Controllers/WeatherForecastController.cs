@@ -1,7 +1,7 @@
-using AuthorizationApp.Server.Models;
+using AuthorizationApp.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuthorizationApp.Server.Controllers
+namespace AuthorizationApp.Web.Controllers
 {
     [ApiController]
     [Route("[controller]")]

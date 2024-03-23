@@ -1,4 +1,4 @@
-namespace AuthorizationApp.Server.Models
+namespace AuthorizationApp.Web.Models
 {
     public class WeatherForecast
     {

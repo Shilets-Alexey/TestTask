@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AuthorizationApp.Web.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection.Emit;
 
-namespace AuthorizationApp.Server.Models
+namespace AuthorizationApp.DataBase.Context
 {
     public class ApplicationDbContext : IdentityDbContext<IdentityUser>
     {
@@ -33,6 +34,6 @@ namespace AuthorizationApp.Server.Models
             builder.Entity<IdentityUserRole<string>>().HasNoKey().HasData(identityUserRole);
             base.OnModelCreating(builder);
         }
-        
+
     }
 }

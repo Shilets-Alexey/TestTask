@@ -1,5 +1,7 @@
-using AuthorizationApp.Server.Mapping;
-using AuthorizationApp.Server.Models;
+using AuthorizationApp.BusinessLogic.Mapping;
+using AuthorizationApp.BusinessLogic.Services;
+using AuthorizationApp.DataBase.Context;
+using AuthorizationApp.Web.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,6 +9,8 @@ var builder = WebApplication.CreateBuilder(args);
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connection));
 builder.Services.AddAuthorization();
+builder.Services.AddScoped<UsersService>();
+builder.Services.AddScoped<AdminsService>();
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultTokenProviders();
@@ -32,7 +36,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
 app.UseDeveloperExceptionPage();
 app.MapControllers();

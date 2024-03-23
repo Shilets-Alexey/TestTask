@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace AuthorizationApp.Server.Models
+namespace AuthorizationApp.Web.Models
 {
     /// <summary>
     /// Class for sent user info to client
@@ -21,6 +21,8 @@ namespace AuthorizationApp.Server.Models
 
         public string ImgType { get; set; }
 
-        public bool IsBtnVisible { get; set; }
+        public bool CanDelete { get; set; }
+
+        public bool CanGrantRole { get; set; }
     }
 }

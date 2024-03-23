@@ -1,6 +1,6 @@
-﻿using AuthorizationApp.Server.Models;
+﻿using AuthorizationApp.Web.Models;
 
-namespace AuthorizationApp.Server.Helpers
+namespace AuthorizationApp.Web.Helpers
 {
     public static class UsersHelper
     {
