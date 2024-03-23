@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System.Reflection.Emit;
 
 namespace AuthorizationApp.DataBase.Context
 {
@@ -25,13 +24,13 @@ namespace AuthorizationApp.DataBase.Context
                 config.ToTable("AspNetUsers");
             });
             PasswordHasher<ApplicationUser> hasher = new PasswordHasher<ApplicationUser>();
-            ApplicationUser admin = new ApplicationUser() { UserName = "admin@mail.ru", Email = "admin@mail.ru", NormalizedUserName = "admin@mail.ru".ToUpper(), NormalizedEmail = "admin@mail.ru".ToUpper() };
+            ApplicationUser admin = new ApplicationUser() { UserName = "admin@mail.ru", Email = "admin@mail.ru", NormalizedUserName = "admin@mail.ru".ToUpper(), NormalizedEmail = "admin@mail.ru".ToUpper(), SucceededLoginsCount = 1, LastLoginDate = DateTime.Now };
             admin.PasswordHash = hasher.HashPassword(admin, "Alex123456!");
             builder.Entity<ApplicationUser>().HasData(admin);
             IdentityRole adminrole = new IdentityRole() { Name = "Admin", NormalizedName = "Admin".ToUpper() };
             builder.Entity<IdentityRole>().HasData(adminrole);
             IdentityUserRole<string> identityUserRole = new IdentityUserRole<string>() { RoleId = adminrole.Id, UserId = admin.Id };
-            builder.Entity<IdentityUserRole<string>>().HasNoKey().HasData(identityUserRole);
+            builder.Entity<IdentityUserRole<string>>().HasData(identityUserRole);
             base.OnModelCreating(builder);
         }
 
