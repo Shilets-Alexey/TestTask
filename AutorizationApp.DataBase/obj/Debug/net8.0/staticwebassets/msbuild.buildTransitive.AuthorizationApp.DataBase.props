@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\AuthorizationApp.DataBase.props" />
-</Project>
